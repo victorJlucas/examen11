@@ -21,9 +21,9 @@ Route::get('posts', function () {
     return view('welcome', compact('posts'));
 });
 
-Route::get('admin', function() {
+Route::get('home', function() {
     return view('admin.dashboard');
-});
+})->middleware('auth');
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');

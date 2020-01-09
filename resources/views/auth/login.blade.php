@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 3 | Log in</title>
+    <title>{{ config('app.name') }} | Acceso</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -26,7 +26,7 @@
     <!-- /.login-logo -->
     <div class="card">
         <div class="card-body login-card-body">
-            <p class="login-box-msg">Sign in to start your session</p>
+            <p class="login-box-msg">@lang('text.login.header')</p>
 
             <form method="POST" action="{{ route('login') }}">
                 @csrf
@@ -61,13 +61,13 @@
                         <div class="icheck-primary">
                             <input type="checkbox" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}>
                             <label for="remember">
-                                Remember Me
+                                @lang('text.login.remember')
                             </label>
                         </div>
                     </div>
                     <!-- /.col -->
                     <div class="col-4">
-                        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                        <button type="submit" class="btn btn-primary btn-block">@lang('text.login.button')</button>
                     </div>
 
                     @if (Route::has('password.request'))
@@ -80,7 +80,7 @@
             </form>
 
             <p class="mb-1">
-                <a href="#">I forgot my password</a>
+                <a href="#">@lang('text.login.forgot')</a>
             </p>
         </div>
         <!-- /.login-card-body -->
