@@ -20,11 +20,12 @@ Route::group([
     'namespace' => 'Admin',
     'middleware' => 'auth'
 ], function() {
+    Route::get('/', 'AdminController@index')->name('dashboard');
     Route::get('posts', 'PostsController@index')->name('admin.posts.index');
     // Resto de rutas administrativas
 });
 
-Route::get('home', 'HomeController@index')->name('admin.home');
+
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
