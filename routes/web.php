@@ -21,7 +21,9 @@ Route::group([
     'middleware' => 'auth'
 ], function() {
     Route::get('/', 'AdminController@index')->name('dashboard');
+
     Route::get('posts', 'PostsController@index')->name('admin.posts.index');
+    Route::get('posts/create', 'PostsController@create')->name('admin.posts.create');
     // Resto de rutas administrativas
 });
 
