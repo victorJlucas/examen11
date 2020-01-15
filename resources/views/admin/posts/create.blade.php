@@ -36,7 +36,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="body">Contenido del post</label>
-                                    <textarea name="body" rows="10"
+                                    <textarea name="body" rows="10" class="form-control"
                                               placeholder="Escribe el texto del post"></textarea>
                                 </div>
                             </div>
@@ -46,9 +46,33 @@
                         <div class="card card-primary">
                             <div class="card-body">
                                 <div class="form-group">
+                                    <label>Fecha de publicación</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="far fa-calendar-alt"></i>
+                                            </span>
+                                        </div>
+                                        <input type="text" class="form-control float-right" id="published_at"
+                                               name="published_at">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="category_id">Categorías</label>
+                                    <select name="category_id" class="form-control">
+                                        <option value="">Selecciona una categoría</option>
+                                        @foreach($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
                                     <label for="excerpt">Extracto del post</label>
-                                    <textarea name="excerpt"
+                                    <textarea name="excerpt" class="form-control"
                                               placeholder="Escribe un extracto del post"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-block">Guardar Post</button>
                                 </div>
                             </div>
                         </div>
@@ -58,3 +82,22 @@
         </div>
     </div>
 @endsection
+
+@push('styles')
+    <link rel="stylesheet" href="/adminlte/plugins/daterangepicker/daterangepicker.css">
+@endpush
+
+@push('scripts')
+    <script src="/adminlte/plugins/moment/moment.min.js"></script>
+    <script src="/adminlte/plugins/daterangepicker/daterangepicker.js"></script>
+    <script>
+        $(function () {
+            $('#published_at').daterangepicker( {
+                singleDatePicker: true,
+                showDropdowns: true,
+                minYear: 2020,
+                maxYear: parseInt(moment().format('YYYY'),10)+1
+            });
+        });
+    </script>
+@endpush
