@@ -31,8 +31,9 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="title">Título del post</label>
-                                    <input type="text" name="title" class="form-control"
-                                           placeholder="Escribe el título del post">
+                                    <input type="text" name="title" class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}"
+                                           placeholder="Escribe el título del post" value="{{ old('title') }}">
+                                    {!! $errors->first('title','<span class="form-text text-danger">:message</span>') !!}
                                 </div>
                                 <div class="form-group">
                                     <div class="card card-outline card-info">
@@ -54,8 +55,9 @@
                                         <!-- /.card-header -->
                                         <div class="card-body pad">
                                             <div class="mb-3">
-                                                <textarea name="body" class=" form-control textarea" placeholder="Escribe el texto del post"
-                                                          style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                                <textarea name="body" class="form-control textarea" placeholder="Escribe el texto del post"
+                                                          style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{ old('body') }}</textarea>
+                                                {!! $errors->first('body','<span class="form-text text-danger">:message</span>') !!}
                                             </div>
                                         </div>
                                     </div>
@@ -80,26 +82,29 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="category_id">Categorías</label>
-                                    <select name="category_id" class="form-control">
+                                    <select name="category_id" class="form-control {{ $errors->has('category_id') ? 'is-invalid' : '' }}">
                                         <option value="">Selecciona una categoría</option>
                                         @foreach($categories as $category)
-                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : ''}}>{{ $category->name }}</option>
                                         @endforeach
                                     </select>
+                                    {!! $errors->first('category_id','<span class="form-text text-danger">:message</span>') !!}
                                 </div>
                                 <div class="form-group">
                                     <label>Etiquetas</label>
-                                    <select name="tags[]" class="form-control select2" multiple="multiple"
+                                    <select name="tags[]" class="form-control select2 {{ $errors->has('tags') ? 'is-invalid' : '' }}" multiple="multiple"
                                             data-placeholder="Select a State" style="width: 100%;">
                                         @foreach($tags as $tag)
-                                        <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                                        <option value="{{ $tag->id }}" {{ collect(old('tags'))->contains($tag->id) ? 'selected': '' }}>{{ $tag->name }}</option>
                                         @endforeach
                                     </select>
+                                    {!! $errors->first('tags','<span class="form-text text-danger">:message</span>') !!}
                                 </div>
                                 <div class="form-group">
                                     <label for="excerpt">Extracto del post</label>
-                                    <textarea name="excerpt" class="form-control"
-                                              placeholder="Escribe un extracto del post"></textarea>
+                                    <textarea name="excerpt" class="form-control {{ $errors->has('excerpt') ? 'is-invalid' : '' }}"
+                                              placeholder="Escribe un extracto del post">{{ old('excerpt') }}</textarea>
+                                    {!! $errors->first('excerpt','<span class="form-text text-danger">:message</span>') !!}
                                 </div>
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary btn-block">Guardar Post</button>
@@ -133,6 +138,8 @@
                 minYear: 2020,
                 maxYear: parseInt(moment().format('YYYY'),10)+1
             });
+            $('#published_at').val('{{ old('published_at', '') }}');
+
             $('.select2').select2();
             $('.textarea').summernote();
         });
