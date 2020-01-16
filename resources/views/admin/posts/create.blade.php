@@ -23,7 +23,7 @@
             </h3>
         </div>
         <div class="card-body">
-            <form action="">
+            <form action="{{ route('admin.posts.store') }}" method="post">
                 {{ csrf_field() }}
                 <div class="row">
                     <div class="col-md-8">
