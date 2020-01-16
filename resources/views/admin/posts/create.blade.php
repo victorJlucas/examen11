@@ -16,7 +16,7 @@
 @endsection
 
 @section('content')
-    <div class="card">
+    <div class="card card-outline card-primary">
         <div class="card-header">
             <h3 class="card-title">
                 Crear un post nuevo
@@ -27,7 +27,7 @@
                 {{ csrf_field() }}
                 <div class="row">
                     <div class="col-md-8">
-                        <div class="card card-primary">
+                        <div class="card card-outline card-primary">
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="title">Título del post</label>
@@ -35,15 +35,36 @@
                                            placeholder="Escribe el título del post">
                                 </div>
                                 <div class="form-group">
-                                    <label for="body">Contenido del post</label>
-                                    <textarea name="body" rows="10" class="form-control"
-                                              placeholder="Escribe el texto del post"></textarea>
+                                    <div class="card card-outline card-info">
+                                        <div class="card-header">
+                                            <h3 class="card-title">
+                                                Contenido del post
+                                            </h3>
+                                            <!-- tools box -->
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool btn-sm" data-card-widget="collapse" data-toggle="tooltip"
+                                                        title="Collapse">
+                                                    <i class="fas fa-minus"></i></button>
+                                                <button type="button" class="btn btn-tool btn-sm" data-card-widget="remove" data-toggle="tooltip"
+                                                        title="Remove">
+                                                    <i class="fas fa-times"></i></button>
+                                            </div>
+                                            <!-- /. tools -->
+                                        </div>
+                                        <!-- /.card-header -->
+                                        <div class="card-body pad">
+                                            <div class="mb-3">
+                                                <textarea name="body" class=" form-control textarea" placeholder="Escribe el texto del post"
+                                                          style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="card card-primary">
+                        <div class="card card-outline card-primary">
                             <div class="card-body">
                                 <div class="form-group">
                                     <label>Fecha de publicación</label>
@@ -67,6 +88,15 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
+                                    <label>Etiquetas</label>
+                                    <select name="tags[]" class="form-control select2" multiple="multiple"
+                                            data-placeholder="Select a State" style="width: 100%;">
+                                        @foreach($tags as $tag)
+                                        <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
                                     <label for="excerpt">Extracto del post</label>
                                     <textarea name="excerpt" class="form-control"
                                               placeholder="Escribe un extracto del post"></textarea>
@@ -85,11 +115,16 @@
 
 @push('styles')
     <link rel="stylesheet" href="/adminlte/plugins/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="/adminlte/plugins/summernote/summernote-bs4.css">
+    <link rel="stylesheet" href="/adminlte/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="/adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
 @endpush
 
 @push('scripts')
+    <script src="/adminlte/plugins/select2/js/select2.full.min.js"></script>
     <script src="/adminlte/plugins/moment/moment.min.js"></script>
     <script src="/adminlte/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="/adminlte/plugins/summernote/summernote-bs4.min.js"></script>
     <script>
         $(function () {
             $('#published_at').daterangepicker( {
@@ -98,6 +133,8 @@
                 minYear: 2020,
                 maxYear: parseInt(moment().format('YYYY'),10)+1
             });
+            $('.select2').select2();
+            $('.textarea').summernote();
         });
     </script>
 @endpush
