@@ -1,6 +1,8 @@
 <?php
 
+use App\Category;
 use App\Post;
+use App\Tag;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
@@ -14,7 +16,7 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
-
+        /*
         $post = new Post;
         $post->title = 'Mi primer post';
         $post->slug = Str::slug('Mi primer post');
@@ -50,5 +52,18 @@ class PostsTableSeeder extends Seeder
         $post->published_at = Carbon::now()->subDays(1);
         $post->category_id = 2;
         $post->save();
+        */
+
+        $categories = Category::all();
+        $categories->each(function ($c) {
+            $posts = factory(Post::class, 10)->make();
+            $c->posts()->saveMany($posts);
+            $posts->each(function ($p) {
+                $p->slug = Str::slug($p->title);
+                $p->save();
+                $tags = Tag::all()->pluck('id')->toArray();
+                $p->tags()->attach(\Illuminate\Support\Arr::random($tags,2));
+            });
+        });
     }
 }

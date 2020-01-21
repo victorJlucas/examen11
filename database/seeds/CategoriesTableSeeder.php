@@ -12,6 +12,7 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
+        /*
         $category = new Category();
         $category->name = 'Categoría 1';
         $category->save();
@@ -19,5 +20,8 @@ class CategoriesTableSeeder extends Seeder
         $category = new Category();
         $category->name = 'Categoría 2';
         $category->save();
+        */
+
+        factory(Category::class, 10)->create();
     }
 }

@@ -18,5 +18,6 @@ class UsersTableSeeder extends Seeder
         $admin->password = bcrypt('123456');
         $admin->save();
 
+        $users = factory(User::class,4)->create();
     }
 }
