@@ -27,26 +27,32 @@ class PostsController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'title' => 'required',
+        $this->validate($request, ['title' => 'required']);
+        /*
             'body'  => 'required',
             'category_id'   => 'required',
             'excerpt'   => 'required',
             'tags'  => 'required'
-        ]);
+         */
 
         $post = new Post;
         $post->title = $request->title;
         $post->slug = Str::slug($post->title);
+        /*
         $post->body = $request->body;
         $post->excerpt = $request->excerpt;
         $post->published_at = $request->published_at ? Carbon::parse($request->published_at) : null;
         $post->category_id = $request->category_id;
-        $post->save();;
+        */
+        $post->save();
 
-        $post->tags()->attach($request->tags);
+        //$post->tags()->attach($request->tags);
 
-        return back()->with('flash', 'El post ha sido creado');
+        return redirect()->route('admin.posts.edit', $post);
+    }
 
+    public function edit(Post $post)
+    {
+        return view('admin.posts.edit', compact('post'));
     }
 }
