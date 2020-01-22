@@ -17,42 +17,55 @@ class PostsController extends Controller
         $posts = Post::all();
         return view('admin.posts.index', compact('posts'));
     }
-
+    /*
     public function create()
     {
         $categories = Category::all();
         $tags = Tag::all();
         return view('admin.posts.create', compact('categories', 'tags'));
     }
-
+    */
     public function store(Request $request)
     {
         $this->validate($request, ['title' => 'required']);
-        /*
-            'body'  => 'required',
-            'category_id'   => 'required',
-            'excerpt'   => 'required',
-            'tags'  => 'required'
-         */
 
         $post = new Post;
         $post->title = $request->title;
         $post->slug = Str::slug($post->title);
-        /*
-        $post->body = $request->body;
-        $post->excerpt = $request->excerpt;
-        $post->published_at = $request->published_at ? Carbon::parse($request->published_at) : null;
-        $post->category_id = $request->category_id;
-        */
         $post->save();
-
-        //$post->tags()->attach($request->tags);
 
         return redirect()->route('admin.posts.edit', $post);
     }
 
     public function edit(Post $post)
     {
-        return view('admin.posts.edit', compact('post'));
+        $categories = Category::all();
+        $tags = Tag::all();
+
+        return view('admin.posts.edit', compact('post', 'categories', 'tags'));
+    }
+
+    public function update(Request $request, Post $post)
+    {
+        $this->validate($request, [
+            'title' => 'required',
+            'body'  => 'required',
+            'category_id'   => 'required',
+            'excerpt'   => 'required',
+            'tags'  => 'required'
+        ]);
+
+        $post->title = $request->title;
+        $post->slug = Str::slug($post->title);
+        $post->body = $request->body;
+        $post->excerpt = $request->excerpt;
+        $post->published_at = $request->published_at ? Carbon::parse($request->published_at) : null;
+        $post->category_id = $request->category_id;
+
+        $post->update();
+
+        $post->tags()->attach($request->tags);
+
+        return back()->with('flash', 'El post ha sido actualizado correctamente');
     }
 }
