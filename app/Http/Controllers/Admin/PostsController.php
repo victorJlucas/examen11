@@ -61,11 +61,12 @@ class PostsController extends Controller
         $post->excerpt = $request->excerpt;
         $post->published_at = $request->published_at ? Carbon::parse($request->published_at) : null;
         $post->category_id = $request->category_id;
-
         $post->update();
 
-        $post->tags()->attach($request->tags);
+        $post->tags()->sync($request->tags);
 
-        return back()->with('flash', 'El post ha sido actualizado correctamente');
+        return redirect()
+            ->route('admin.posts.edit', $post)
+            ->with('flash', 'El post ha sido actualizado correctamente');
     }
 }

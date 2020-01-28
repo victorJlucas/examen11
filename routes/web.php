@@ -28,7 +28,8 @@ Route::group([
     Route::post('posts', 'PostsController@store')->name('admin.posts.store');
     Route::get('posts/{post}/edit', 'PostsController@edit')->name('admin.posts.edit');
     Route::put('posts/{post}', 'Postscontroller@update')->name('admin.posts.update');
-    // Resto de rutas administrativas
+
+    Route::post('posts/{post}/photos', 'PhotosController@store')->name('admin.posts.photos.store');
 });
 
 

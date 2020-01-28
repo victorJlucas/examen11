@@ -13,7 +13,9 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <input type="text" name="title" class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}"
-                               placeholder="Escribe el título del post" value="{{ old('title') }}">
+                               placeholder="Escribe el título del post" value="{{ old('title') }}"
+                                required
+                        >
                         {!! $errors->first('title','<span class="form-text text-danger">:message</span>') !!}
                     </div>
                 </div>

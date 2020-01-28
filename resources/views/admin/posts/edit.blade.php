@@ -108,6 +108,9 @@
                                     {!! $errors->first('excerpt','<span class="form-text text-danger">:message</span>') !!}
                                 </div>
                                 <div class="form-group">
+                                    <div class="dropzone"></div>
+                                </div>
+                                <div class="form-group">
                                     <button type="submit" class="btn btn-primary btn-block">Actualizar Post</button>
                                 </div>
                             </div>
@@ -124,6 +127,7 @@
     <link rel="stylesheet" href="/adminlte/plugins/summernote/summernote-bs4.css">
     <link rel="stylesheet" href="/adminlte/plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="/adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css">
 @endpush
 
 @push('scripts')
@@ -131,7 +135,9 @@
     <script src="/adminlte/plugins/moment/moment.min.js"></script>
     <script src="/adminlte/plugins/daterangepicker/daterangepicker.js"></script>
     <script src="/adminlte/plugins/summernote/summernote-bs4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
     <script>
+        Dropzone.autoDiscover = false;
         $(function () {
             $('#published_at').daterangepicker( {
                 singleDatePicker: true,
@@ -143,6 +149,17 @@
 
             $('.select2').select2();
             $('.textarea').summernote();
+
+            $('.dropzone').dropzone({
+                url: '/admin/posts/{{ $post->slug }}/photos',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                dictDefaultMessage: 'Arrastra aquí las fotos'
+            });
+
+
+
         });
     </script>
 @endpush
