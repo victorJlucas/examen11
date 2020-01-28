@@ -150,14 +150,21 @@
             $('.select2').select2();
             $('.textarea').summernote();
 
-            $('.dropzone').dropzone({
+            var photos = new Dropzone('.dropzone', {
                 url: '/admin/posts/{{ $post->slug }}/photos',
+                //acceptedFiles: 'image/*',
+                paramName: 'photo',
+                //maxFilesize: 2,
                 headers: {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
                 dictDefaultMessage: 'Arrastra aquí las fotos'
             });
 
+            photos.on('error', function (file,res) {
+                var msg = res.errors.photo[0];
+                $('.dz-error-message:last > span').text(msg);
+            });
 
 
         });
