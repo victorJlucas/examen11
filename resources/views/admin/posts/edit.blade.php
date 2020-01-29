@@ -151,10 +151,10 @@
             $('.textarea').summernote();
 
             var photos = new Dropzone('.dropzone', {
-                url: '/admin/posts/{{ $post->slug }}/photos',
-                //acceptedFiles: 'image/*',
+                url: '{{ route('admin.posts.photos.store', $post->slug) }}',
+                acceptedFiles: 'image/*',
                 paramName: 'photo',
-                //maxFilesize: 2,
+                maxFilesize: 2,
                 headers: {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
