@@ -77,6 +77,13 @@
                                                 {!! $errors->first('body','<span class="form-text text-danger">:message</span>') !!}
                                             </div>
                                         </div>
+                                        <div class="form-group">
+                                            <label>Audio o vídeo embebido del post</label>
+                                            <textarea name="iframe" rows="4" class="form-control {{ $errors->has('iframe') ? 'is-invalid' : '' }}"
+                                                placeholder="Añade el iframe del vídeo o audio"
+                                            >{{ old('iframe', $post->iframe) }}</textarea>
+                                            {!! $errors->first('iframe','<span class="form-text text-danger">:message</span>') !!}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
