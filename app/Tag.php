@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Tag extends Model
 {
@@ -13,6 +14,12 @@ class Tag extends Model
 
     public function getRouteKeyName()
     {
-        return 'name';
+        return 'url';
+    }
+
+    public function setNameAttribute($name)
+    {
+        $this->attributes['name'] = $name;
+        $this->attributes['url'] = Str::slug($name);
     }
 }
