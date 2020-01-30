@@ -23,7 +23,8 @@
             </h3>
         </div>
         <div class="card-body">
-            <div class="row">
+            @if($post->photos->count() > 0)
+                <div class="row">
                 @foreach($post->photos as $photo)
                     <div class="col-md-2">
                         <form action="{{ route('admin.photos.destroy', $photo) }}" method="post" class="form-inline">
@@ -37,6 +38,7 @@
                     </div>
                 @endforeach
             </div>
+            @endif
             <form action="{{ route('admin.posts.update', $post) }}" method="post">
                 @csrf
                 @method('PUT')
