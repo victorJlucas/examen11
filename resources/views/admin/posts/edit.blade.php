@@ -23,6 +23,20 @@
             </h3>
         </div>
         <div class="card-body">
+            <div class="row">
+                @foreach($post->photos as $photo)
+                    <div class="col-md-2">
+                        <form action="{{ route('admin.photos.destroy', $photo) }}" method="post" class="form-inline">
+                        @csrf
+                        @method('delete')
+                            <button class="btn btn-danger btn-xs" style="position: absolute">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                            <img src="{{ url($photo->url) }}" class="img-responsive img-thumbnail">
+                    </form>
+                    </div>
+                @endforeach
+            </div>
             <form action="{{ route('admin.posts.update', $post) }}" method="post">
                 @csrf
                 @method('PUT')
@@ -117,6 +131,7 @@
                         </div>
                     </div>
                 </div>
+
             </form>
         </div>
     </div>
