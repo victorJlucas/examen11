@@ -16,6 +16,7 @@ Route::get('/', 'PagesController@home')->name('home');
 Route::get('posts', 'PagesController@home');
 Route::get('blog/{post}', 'PostsController@show')->name('posts.show');
 Route::get('categories/{category}', 'CategoriesController@show')->name('categories.show');
+Route::get('tags/{tag}', 'TagsController@show')->name('tags.show');
 
 Route::group([
     'prefix' => 'admin',
