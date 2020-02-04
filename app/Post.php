@@ -8,6 +8,8 @@ use Illuminate\Support\Str;
 
 class Post extends Model
 {
+    protected $fillable = ['title', 'body', 'iframe', 'published_at', 'category_id', 'excerpt'];
+
     protected $dates = ['published_at'];
 
     public function category()
@@ -41,5 +43,28 @@ class Post extends Model
     {
         $this->attributes['title'] = $title;
         $this->attributes['slug'] = Str::slug($title);
+    }
+
+    public function setPublishedAtAttribute($published_at)
+    {
+        $this->attributes['published_at'] = $published_at
+                                        ? Carbon::parse($published_at)
+                                        : null;
+    }
+
+    public function setCategoryIdAttribute($category_id)
+    {
+        $this->attributes['category_id'] = Category::find($category_id)
+            ? $category_id
+            : Category::create(['name' => $category_id])->id;
+    }
+
+    public function syncTags($tags)
+    {
+        $tagIds = collect($tags)->map( function ($tag) {
+            return Tag::find($tag) ? $tag : Tag::create(['name' => $tag])->id;
+        });
+
+        return $this->tags()->sync($tagIds);
     }
 }
