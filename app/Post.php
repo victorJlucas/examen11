@@ -12,6 +12,16 @@ class Post extends Model
 
     protected $dates = ['published_at'];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($post) {
+            $post->photos->each->delete();
+            $post->tags()->detach();
+        });
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);

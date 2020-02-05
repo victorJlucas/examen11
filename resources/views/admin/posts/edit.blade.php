@@ -33,7 +33,7 @@
                             <button class="btn btn-danger btn-xs" style="position: absolute">
                                 <i class="fa fa-trash"></i>
                             </button>
-                            <img src="{{ url($photo->url) }}" class="img-responsive img-thumbnail">
+                            <img src="{{ Storage::url($photo->url) }}" class="img-responsive img-thumbnail">
                     </form>
                     </div>
                 @endforeach

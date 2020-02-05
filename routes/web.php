@@ -26,10 +26,10 @@ Route::group([
     Route::get('/', 'AdminController@index')->name('dashboard');
 
     Route::get('posts', 'PostsController@index')->name('admin.posts.index');
-    //Route::get('posts/create', 'PostsController@create')->name('admin.posts.create');
     Route::post('posts', 'PostsController@store')->name('admin.posts.store');
     Route::get('posts/{post}/edit', 'PostsController@edit')->name('admin.posts.edit');
     Route::put('posts/{post}', 'Postscontroller@update')->name('admin.posts.update');
+    Route::delete('posts/{post}', 'PostsController@destroy')->name('admin.posts.destroy');
 
     Route::post('posts/{post}/photos', 'PhotosController@store')->name('admin.posts.photos.store');
     Route::delete('photos/{photo}', 'PhotosController@destroy')->name('admin.photos.destroy');

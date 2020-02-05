@@ -46,4 +46,11 @@ class PostsController extends Controller
             ->route('admin.posts.edit', $post)
             ->with('flash', 'El post ha sido actualizado correctamente');
     }
+
+    public function destroy(Post $post)
+    {
+        $post->delete();
+
+        return redirect()->route('admin.posts.index')->with('flash', 'El post ha sido eliminado');
+    }
 }
