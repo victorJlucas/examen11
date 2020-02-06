@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 
 class Post extends Model
 {
-    protected $fillable = ['title', 'body', 'iframe', 'published_at', 'category_id', 'excerpt'];
+    protected $fillable = ['title', 'body', 'iframe', 'published_at', 'category_id', 'excerpt', 'user_id'];
 
     protected $dates = ['published_at'];
 
@@ -40,6 +40,11 @@ class Post extends Model
         }
         $this->slug = $slug;
         $this->save();
+    }
+
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function category()
