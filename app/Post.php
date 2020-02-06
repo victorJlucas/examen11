@@ -22,6 +22,26 @@ class Post extends Model
         });
     }
 
+    public static function create(array $attributes = [])
+    {
+        $post = static::query()->create($attributes);
+
+        $post->generateSlug();
+
+        return $post;
+    }
+
+    public function generateSlug()
+    {
+        $slug = Str::slug($this->title);
+
+        if (static::whereSlug($slug)->exists()) {
+            $slug .= '-' . $this->id;
+        }
+        $this->slug = $slug;
+        $this->save();
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -47,12 +67,6 @@ class Post extends Model
     public function getRouteKeyName()
     {
         return 'slug';
-    }
-
-    public function setTitleAttribute($title)
-    {
-        $this->attributes['title'] = $title;
-        $this->attributes['slug'] = Str::slug($title);
     }
 
     public function setPublishedAtAttribute($published_at)

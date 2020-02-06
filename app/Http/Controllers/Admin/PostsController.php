@@ -8,6 +8,7 @@ use App\Post;
 use App\Tag;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 
 class PostsController extends Controller
 {
@@ -21,9 +22,7 @@ class PostsController extends Controller
     {
         $this->validate($request, ['title' => 'required | min:3']);
 
-        $post = new Post;
-        $post->title = $request->title;
-        $post->save();
+        $post = Post::create($request->only('title'));
 
         return redirect()->route('admin.posts.edit', $post);
     }
