@@ -19,7 +19,7 @@ class PostsController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, ['title' => 'required']);
+        $this->validate($request, ['title' => 'required | min:3']);
 
         $post = new Post;
         $post->title = $request->title;
