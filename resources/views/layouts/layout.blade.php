@@ -19,15 +19,7 @@
 <header class="space-inter">
     <div class="container container-flex space-between">
         <figure class="logo"><img src="/img/logo.png" alt=""></figure>
-        <nav class="custom-wrapper" id="menu">
-            <div class="pure-menu"></div>
-            <ul class="container-flex list-unstyled">
-                <li><a href="{{ route('home') }}" class="text-uppercase">Home</a></li>
-                <li><a href="#" class="text-uppercase">About</a></li>
-                <li><a href="#" class="text-uppercase">Archive</a></li>
-                <li><a href="#" class="text-uppercase">Contact</a></li>
-            </ul>
-        </nav>
+        @include('partials.nav')
     </div>
 </header>
 
@@ -37,14 +29,6 @@
     <footer>
         <div class="container">
             <figure class="logo"><img src="/img/logo.png" alt=""></figure>
-            <nav>
-                <ul class="container-flex space-center list-unstyled">
-                    <li><a href="{{ route('home') }}" class="text-uppercase c-white">home</a></li>
-                    <li><a href="#" class="text-uppercase c-white">about</a></li>
-                    <li><a href="#" class="text-uppercase c-white">archive</a></li>
-                    <li><a href="#" class="text-uppercase c-white">contact</a></li>
-                </ul>
-            </nav>
             <div class="divider-2"></div>
             <p>© 2017 - Zendero. All Rights Reserved. Designed & Developed by <span class="c-white">Agencia De La Web</span></p>
         </div>
