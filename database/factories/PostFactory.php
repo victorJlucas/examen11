@@ -11,6 +11,6 @@ $factory->define(Post::class, function (Faker $faker) {
         'excerpt' => $faker->sentence,
         'body'  => $faker->paragraph(3),
         'published_at' => $faker->dateTimeThisMonth,
-        'user_id'   => $faker->numberBetween(1,5)
+        'user_id'   => $faker->numberBetween(1,10)
     ];
 });
