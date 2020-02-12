@@ -10,6 +10,11 @@ class PostPolicy
 {
     use HandlesAuthorization;
 
+    public function before($user)
+    {
+        return $user->hasRole('Admin') ? true : null;
+    }
+
     /**
      * Determine whether the user can view any posts.
      *
