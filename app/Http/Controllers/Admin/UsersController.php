@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Validation\Rule;
 
 class UsersController extends Controller
 {
@@ -60,7 +61,7 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('admin.users.edit', compact('user'));
     }
 
     /**
@@ -72,7 +73,14 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $data = $this->validate($request, [
+            'name'  => 'required',
+            'email' => ['required', Rule::unique('users')->ignore($user->id)]
+        ]);
+
+        $user->update($data);
+
+        return back()->withFlash('Usuario actualizado');
     }
 
     /**
