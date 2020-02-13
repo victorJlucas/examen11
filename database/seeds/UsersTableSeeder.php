@@ -36,6 +36,7 @@ class UsersTableSeeder extends Seeder
         $writer->password = bcrypt('123456');
         $writer->save();
 
+        $writer->assignRole($adminRole);
         $writer->assignRole($writerRole);
 
         $users = factory(User::class, 8)->make();
