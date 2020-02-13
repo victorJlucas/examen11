@@ -25,7 +25,7 @@ class UsersTableSeeder extends Seeder
         $admin = new User;
         $admin->name = 'Carlos Abrisqueta';
         $admin->email = 'iescierva.carlos@gmail.com';
-        $admin->password = bcrypt('123456');
+        $admin->password = '123456';
         $admin->save();
 
         $admin->assignRole($adminRole);
@@ -33,7 +33,7 @@ class UsersTableSeeder extends Seeder
         $writer = new User;
         $writer->name = 'Pepe Sánchez';
         $writer->email = 'pepe@iescierva.net';
-        $writer->password = bcrypt('123456');
+        $writer->password = '123456';
         $writer->save();
 
         $writer->assignRole($adminRole);
