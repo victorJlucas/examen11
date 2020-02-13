@@ -39,7 +39,7 @@
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->getRoleNames()->implode(', ') }}</td>
                         <td>
-                            <a href="{{ route('admin.users.show', $user) }}" class="btn btn-xs btn-default" target="_blank"><i class="fa fa-eye"></i></a>
+                            <a href="{{ route('admin.users.show', $user) }}" class="btn btn-xs btn-default"><i class="fa fa-eye"></i></a>
                             <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-xs btn-info"><i class="fa fa-pencil-alt"></i></a>
                             <form action="{{ route('admin.users.destroy', $user) }}" method="post" class="d-inline">
                                 @csrf
