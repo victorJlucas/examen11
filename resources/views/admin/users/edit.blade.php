@@ -55,16 +55,7 @@
             <div class="card-body">
                 <form action="{{ route('admin.users.roles.update', $user) }}" method="post">
                     @csrf @method('put')
-                    @foreach($roles as $role)
-                        <div class="form-check">
-                            <label>
-                                <input type="checkbox" value="{{ $role->id }}" name="roles[]"
-                                    {{ $user->roles->contains($role->id) ? 'checked' : '' }}>
-                                {{ $role->name }}
-                                <small class="text-muted">{{ $role->permissions->pluck('name')->implode(', ') }}</small>
-                            </label>
-                        </div>
-                    @endforeach
+                    @include('admin.roles.checkboxes')
                     <button class="btn btn-primary btn-block">Actualizar Roles</button>
                 </form>
             </div>
@@ -76,15 +67,7 @@
             <div class="card-body">
                 <form action="{{ route('admin.users.permissions.update', $user) }}" method="post">
                     @csrf @method('put')
-                    @foreach($permissions as $id => $name)
-                        <div class="form-check">
-                            <label>
-                                <input type="checkbox" value="{{ $id }}" name="roles[]"
-                                    {{ $user->permissions->contains($id) ? 'checked' : '' }}>
-                                {{ $name }}
-                            </label>
-                        </div>
-                    @endforeach
+                    @include('admin.permissions.checkboxes')
                     <button class="btn btn-primary btn-block">Actualizar Permisos</button>
                 </form>
             </div>

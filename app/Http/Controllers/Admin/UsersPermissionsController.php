@@ -10,7 +10,10 @@ class UsersPermissionsController extends Controller
 {
     public function update(Request $request, User $user)
     {
-        $user->syncRoles($request->permissions);
+        $user->permissions()->detach();
+
+        $user->givePermissionTo($request->permissions);
+        
         return back()->withFlash('Los permisos han sido actualizados');
     }
 }
