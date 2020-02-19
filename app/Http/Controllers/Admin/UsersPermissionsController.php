@@ -13,7 +13,7 @@ class UsersPermissionsController extends Controller
         $user->permissions()->detach();
 
         $user->givePermissionTo($request->permissions);
-        
+
         return back()->withFlash('Los permisos han sido actualizados');
     }
 }
