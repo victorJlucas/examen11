@@ -109,7 +109,7 @@ class UsersController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
         $this->authorize('update', $user);
-        
+
         $user->update($request->validated());
 
         return back()->withFlash('Usuario actualizado');
@@ -123,6 +123,11 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $this->authorize('delete', $user);
+
+        $user->delete();
+
+        return redirect()->route('admin.users.index')
+            ->withFlash('El usuario ' . $user->name . ' ha sido eliminado');
     }
 }
