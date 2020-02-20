@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class RolesController extends Controller
@@ -27,7 +28,9 @@ class RolesController extends Controller
      */
     public function create()
     {
-        //
+        $permissions = Permission::pluck('name', 'id');
+        $role = new Role;
+        return view('admin.roles.create', compact('role', 'permissions'));
     }
 
     /**
@@ -38,7 +41,19 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $this->validate($request, [
+            'name'  => 'required | unique:roles',
+            'guard_name' => 'required'
+        ]);
+
+        $role = Role::create($data);
+
+        if ($request->has('permissions')) {
+            $role->givePermissionTo($request->permissions);
+        }
+
+        return redirect()->route('admin.roles.index')
+            ->withFlash('El rol ha sido creado satisfactoriamente');
     }
 
     /**
@@ -47,7 +62,7 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Role $role)
     {
         //
     }
@@ -58,9 +73,11 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Role $role)
     {
-        //
+        $permissions = Permission::pluck('name', 'id');
+
+        return view('admin.roles.edit', compact('role', 'permissions'));
     }
 
     /**
@@ -70,9 +87,23 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Role $role)
     {
-        //
+        $data = $this->validate($request, [
+            'name'  => 'required | unique:roles,name,' . $role->id,
+            'guard_name' => 'required'
+        ]);
+
+        $role->update($data);
+
+        $role->permissions()->detach();
+
+        if ($request->has('permissions')) {
+            $role->givePermissionTo($request->permissions);
+        }
+
+        return redirect()->route('admin.roles.index')
+            ->withFlash('El rol ha sido actualizado correctamente');
     }
 
     /**
@@ -81,7 +112,7 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Role $role)
     {
         //
     }
