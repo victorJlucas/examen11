@@ -61,6 +61,7 @@ class UsersController extends Controller
         $user = User::create($data);
 
         $user->assignRole($request->roles);
+       // $user->assignRole('default');
 
         $user->givePermissionTo($request->permissions);
 

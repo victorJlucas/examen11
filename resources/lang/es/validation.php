@@ -135,7 +135,24 @@ return [
         'email' => [
             'unique' => 'El :attribute ya ha sido registrado.',
         ],
+        'title' => [
+            'required' => 'El campo :attribute está mal',
+            'min' => 'El :attribute debe contener más de :min caracteres',
+        ],
+        'body' => [
+            'required' => 'El campo :attribute está mal',
+        ],
+        'category_id' => [
+            'required' => 'El campo :attribute está mal',
+        ],
+        'excerpt' => [
+            'required' => 'El campo :attribute está mal',
+        ],
+        'tags' => [
+            'required' => 'El campo :attribute está mal',
+        ],
     ],
+
 
     /*
     |--------------------------------------------------------------------------

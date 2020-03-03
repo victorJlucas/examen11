@@ -129,9 +129,23 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'title' => [
+            'required' => 'The field :attribute is bad',
+            'min' => 'The field :attribute must be :min caracters',
         ],
+        'body' => [
+            'required' => 'The field :attribute is bad',
+        ],
+        'category_id' => [
+            'required' => 'The field :attribute is bad',
+        ],
+        'excerpt' => [
+            'required' => 'The field :attribute is bad',
+        ],
+        'tags' => [
+            'required' => 'The field :attribute is bad',
+        ],
+
     ],
 
     /*

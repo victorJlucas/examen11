@@ -5,10 +5,11 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use PhpParser\Comment;
 
 class Post extends Model
 {
-    protected $fillable = ['title', 'body', 'iframe', 'published_at', 'category_id', 'excerpt', 'user_id'];
+    protected $fillable = ['title', 'body', 'visist', 'iframe', 'published_at', 'category_id', 'excerpt', 'user_id'];
 
     protected $dates = ['published_at'];
 
@@ -64,6 +65,12 @@ class Post extends Model
         return $this->hasMany(Photo::class);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comments::class);
+    }
+
+
     public function scopePublished($query)
     {
         $query->whereNotNull('published_at')
@@ -78,6 +85,11 @@ class Post extends Model
         } else {
             return $query->where('user_id', auth()->id());
         }
+    }
+
+    public function registrarVisita(){
+        $this->visitas+=1;
+        $this->save();
     }
 
     public function isPublished()

@@ -28,6 +28,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Nombre</th>
+                    <th>Display name</th>
                     <th>Guard</th>
                     <th>Acciones</th>
                 </tr>
@@ -37,7 +38,8 @@
                     <tr>
                         <td>{{ $role->id }}</td>
                         <td>{{ $role->name }}</td>
-                        <td>{{ $role->guard }}</td>
+                        <td>{{ $role->display_name }}</td>
+                        <td>{{ $role->guard_name }}</td>
                         <td>
                             <a href="{{ route('admin.roles.show', $role) }}" class="btn btn-xs btn-default"><i class="fa fa-eye"></i></a>
                             <a href="{{ route('admin.roles.edit', $role) }}" class="btn btn-xs btn-info"><i class="fa fa-pencil-alt"></i></a>

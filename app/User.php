@@ -38,6 +38,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /*public static function boot()
+    {
+        //parent::boot();
+
+       /* static::created(function ($user) {
+            if ($user->id != 1 && $user->id != 2)
+                $user->assignRole('default');
+        });
+    }
+    */
+
     public function posts()
     {
         return $this->hasMany(Post::class);

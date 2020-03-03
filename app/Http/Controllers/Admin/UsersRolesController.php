@@ -13,4 +13,5 @@ class UsersRolesController extends Controller
         $user->syncRoles($request->roles);
         return back()->withFlash('Los roles han sido actualizados');
     }
+
 }

@@ -82,6 +82,11 @@
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Crear un usuario</p>
                             </a>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.roles.index') }}" class="nav-link {{ setActiveRoute('admin.users.roles') }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Roles</p>
+                            </a>
                         </li>
                     </ul>
                 </li>

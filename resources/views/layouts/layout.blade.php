@@ -30,7 +30,8 @@
         <div class="container">
             <figure class="logo"><img src="/img/logo.png" alt=""></figure>
             <div class="divider-2"></div>
-            <p>© 2017 - Zendero. All Rights Reserved. Designed & Developed by <span class="c-white">Agencia De La Web</span></p>
+            <p>© 2017 - Zendero. All Rights Reserved. Designed & Developed by <span
+                    class="c-white">Agencia De La Web</span></p>
         </div>
     </footer>
 </section>

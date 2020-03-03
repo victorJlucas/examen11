@@ -20,8 +20,13 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\UserWasCreated' => [
             'App\Listeners\SendLoginCredentials',
+        ],
+
+        'App\Events\UserVisitPost' => [
+            'App\Listeners\RegisterVisit',
         ]
     ];
+
 
     /**
      * Register any events for your application.

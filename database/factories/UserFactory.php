@@ -24,4 +24,8 @@ $factory->define(User::class, function (Faker $faker) {
         'password' => '123456',
         'remember_token' => Str::random(10),
     ];
+
+
 });
+
+

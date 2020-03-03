@@ -17,7 +17,12 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="name">Nombre:</label>
-                                    <input type="text" name="name" value="{{ old('name', $role->name) }}"
+                                    <input type="text" name="name" disabled value="{{ old('name', $role->name) }}"
+                                           class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="display_name">Display name:</label>
+                                    <input type="text" name="display_name" value="{{ old('display_name', $role->display_name) }}"
                                            class="form-control">
                                 </div>
                                 <div class="form-group">

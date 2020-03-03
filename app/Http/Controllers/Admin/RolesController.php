@@ -36,14 +36,15 @@ class RolesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $data = $this->validate($request, [
-            'name'  => 'required | unique:roles',
-            'guard_name' => 'required'
+            'name' => 'required | unique:roles',
+            'guard_name' => 'required',
+            'display_name' => 'required | unique:roles',
         ]);
 
         $role = Role::create($data);
@@ -57,20 +58,9 @@ class RolesController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Role $role)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit(Role $role)
@@ -83,15 +73,16 @@ class RolesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Role $role)
     {
         $data = $this->validate($request, [
-            'name'  => 'required | unique:roles,name,' . $role->id,
-            'guard_name' => 'required'
+            'name' => 'unique:roles,name,' . $role->id,
+            'guard_name' => 'required',
+            'display_name' => 'required | unique:roles',
         ]);
 
         $role->update($data);
@@ -106,14 +97,13 @@ class RolesController extends Controller
             ->withFlash('El rol ha sido actualizado correctamente');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Role $role)
     {
-        //
+        //$this->authorize('delete', $role);
+
+        $role->delete();
+
+        return redirect()->route('admin.roles.index')
+            ->withFlash('El usuario ' . $role->name . ' ha sido eliminado');
     }
 }

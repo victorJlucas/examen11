@@ -27,6 +27,7 @@
         <tr>
             <th>ID</th>
             <th>Título</th>
+            <th>Visitas</th>
             <th>Extracto</th>
             <th>Acciones</th>
         </tr>
@@ -36,6 +37,7 @@
             <tr>
                 <td>{{ $post->id }}</td>
                 <td>{{ $post->title }}</td>
+                <td>{{ $post->visits }}</td>
                 <td>{{ $post->excerpt }}</td>
                 <td>
                     <a href="{{ route('posts.show', $post) }}" class="btn btn-xs btn-default" target="_blank"><i class="fa fa-eye"></i></a>

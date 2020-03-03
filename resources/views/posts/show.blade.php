@@ -24,6 +24,60 @@
             </div>
         </div>
     </article>
+
+    <div class="post container">
+        <form action="{{ route('posts.comments.store', $post->slug) }}" method="post" class="p-3">
+            @csrf
+            @method('post')
+            <div class="form-group">
+                <label for="author">Autor:</label>
+                <input type="text" name="author" value="{{ old('author') }}"
+                       class="form-control" placeholder="Anónimo">
+            </div>
+            <div class="form-group">
+                <label for="author">Título:</label>
+                <input type="text" name="title" value="{{ old('title') }}"
+                       class="form-control" placeholder="Título">
+            </div>
+            <div class="form-group">
+                <label for="body">Texto:</label>
+                <textarea type="text" name="body"
+                          class="form-control">{{ old('body') }}</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">
+                Enviar comentario
+            </button>
+
+        </form>
+    </div>
+    <div class="post container">
+        @forelse($comments as $comment)
+            <div class="row">
+                <form action="{{ route('posts.comments.destroy', $comment) }}" method="post" class="">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-xs btn-danger float-right " onclick="return confirm('¿Seguro que quieres eliminar este comentario?')">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </form>
+                <a href="{{ route('posts.comments.edit', $comment) }}" class="btn btn-xs btn-info float-right"><i class="fa fa-pencil-alt "></i></a>--}}
+
+
+            </div>
+            <div class="p-4">
+                <p>Autor: {{ $comment->author }}</p>
+                <p>{{ $comment->body }}</p>
+                <p>Creado el: {{ $comment->created_at }}</p>
+
+            </div>
+            <hr>
+        @empty
+            <div class="p-5">
+                <h2>No hay comentarios</h2>
+            </div>
+        @endforelse
+    </div>
+
 @endsection
 
 @push('styles')

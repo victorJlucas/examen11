@@ -18,6 +18,7 @@ class CreatePostsTable extends Migration
 
             $table->string('title');
             $table->string('slug')->nullable();
+            $table->mediumText('visits')->nullable();
             $table->mediumText('excerpt')->nullable();
             $table->mediumText('iframe')->nullable();
             $table->text('body')->nullable();
