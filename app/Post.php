@@ -30,12 +30,23 @@ class Post extends Model
 
         $post = static::query()->create($attributes);
 
-        $post->generateSlug();
+      //  $post->generateSlug();
 
         return $post;
     }
 
-    public function generateSlug()
+    public function setTitleAttribute($title)
+    {
+        $slug = Str::slug($title);
+        if (static::whereSlug($slug)->exists()) {
+            $slug .= '_' . static::where('slug', 'like', $slug . '_%')->count();
+        }
+        $this->attributes['slug'] = $slug;
+        $this->attributes['title'] = $title;
+
+    }
+
+/*    public function generateSlug()
     {
         $slug = Str::slug($this->title);
 
@@ -44,7 +55,7 @@ class Post extends Model
         }
         $this->slug = $slug;
         $this->save();
-    }
+    }*/
 
     public function owner()
     {
