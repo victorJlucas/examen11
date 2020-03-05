@@ -25,6 +25,7 @@ class Post extends Model
 
     public static function create(array $attributes = [])
     {
+
         $attributes['user_id'] = auth()->id();
 
         $post = static::query()->create($attributes);
@@ -80,21 +81,27 @@ class Post extends Model
 
     public function scopeAllowed($query)
     {
-        if(auth()->user()->can('view', $this)){
+        if (auth()->user()->can('view', $this)) {
             return $query;
         } else {
             return $query->where('user_id', auth()->id());
         }
     }
 
-    public function registrarVisita(){
-        $this->visitas+=1;
+    public function registrarVisita()
+    {
+        $this->visitas += 1;
         $this->save();
+    }
+
+    public function scopeMostViewed($query)
+    {
+        return Post::orderBy('visits', 'DESC')->get();
     }
 
     public function isPublished()
     {
-        return ! is_null($this->published_at) && $this->published_at < today();
+        return !is_null($this->published_at) && $this->published_at < today();
     }
 
     public function getRouteKeyName()
@@ -102,11 +109,11 @@ class Post extends Model
         return 'slug';
     }
 
-    public function setPublishedAtAttribute($published_at)
+    public function setPublishedAtAttribute($published_at)//mutator get es extractor
     {
         $this->attributes['published_at'] = $published_at
-                                        ? Carbon::parse($published_at)
-                                        : null;
+            ? Carbon::parse($published_at)
+            : null;
     }
 
     public function setCategoryIdAttribute($category_id)
@@ -118,7 +125,7 @@ class Post extends Model
 
     public function syncTags($tags)
     {
-        $tagIds = collect($tags)->map( function ($tag) {
+        $tagIds = collect($tags)->map(function ($tag) {
             return Tag::find($tag) ? $tag : Tag::create(['name' => $tag])->id;
         });
 
@@ -127,11 +134,11 @@ class Post extends Model
 
     public function viewType($view = '')
     {
-        if($this->photos->count() === 1) {
+        if ($this->photos->count() === 1) {
             return 'posts.photo';
-        } elseif($this->photos->count() > 1) {
+        } elseif ($this->photos->count() > 1) {
             return 'posts.carousel' . $view;
-        } elseif($this->iframe) {
+        } elseif ($this->iframe) {
             return 'posts.iframe';
         } else {
             return 'posts.text';

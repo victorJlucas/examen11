@@ -24,7 +24,10 @@ class EventServiceProvider extends ServiceProvider
 
         'App\Events\UserVisitPost' => [
             'App\Listeners\RegisterVisit',
-        ]
+        ],
+        'App\Events\DeletedPost' => [
+            'App\Listeners\LogDeletion',
+        ],
     ];
 
 

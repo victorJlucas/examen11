@@ -56,7 +56,8 @@
                 @role('Admin')
                     <form action="{{ route('admin.users.roles.update', $user) }}" method="post">
                         @csrf @method('put')
-                        @include('admin.roles.checkboxes')
+                        {!! Form::bsCheckbox($roles,'roles', $user, 'roles') !!}
+                      {{--  @include('admin.roles.checkboxes')--}}
                         <button class="btn btn-primary btn-block">Actualizar Roles</button>
                     </form>
                 @else
@@ -77,7 +78,9 @@
             <div class="card-body">
                 <form action="{{ route('admin.users.permissions.update', $user) }}" method="post">
                     @csrf @method('put')
-                    @include('admin.permissions.checkboxes', ['model' => $user])
+
+                    {!! Form::bsCheckbox($permissions,'permissions', $user, 'permissions') !!}
+                    {{--@include('admin.permissions.checkboxes', ['model' => $user])--}}
                     <button class="btn btn-primary btn-block">Actualizar Permisos</button>
                 </form>
             </div>

@@ -15,7 +15,7 @@
             </div>
             <div class="info">
                 <a href="#" class="d-block">{{ auth()->user()->name }}</a>
-                <p class="text-white">{{ auth()->user()->roles->first()->name }}</p>
+                <p class="text-white">{{ auth()->user()->roles->first()->display_name }}</p>
             </div>
         </div>
 

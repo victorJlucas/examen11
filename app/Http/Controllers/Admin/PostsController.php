@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
+use App\Events\DeletedPost;
 use App\Http\Requests\StorePostRequest;
 use App\Post;
 use App\Tag;
@@ -22,7 +23,8 @@ class PostsController extends Controller
     public function store(Request $request)
     {
         $this->authorize('create', new Post);
-        $this->validate($request, ['title' => 'required | min:3']);
+        $this->validate($request, ['title' => 'required | min:3'] /*, ['title.required' => __('file.key'),
+            ]*/);
 
         $post = Post::create($request->all());
 
@@ -58,6 +60,7 @@ class PostsController extends Controller
         $this->authorize('delete', $post);
 
         $post->delete();
+        DeletedPost::dispatch($post);
 
         return redirect()->route('admin.posts.index')->with('flash', 'El post ha sido eliminado');
     }

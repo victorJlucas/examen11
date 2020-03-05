@@ -41,15 +41,17 @@
                         <td>{{ $role->display_name }}</td>
                         <td>{{ $role->guard_name }}</td>
                         <td>
-                            <a href="{{ route('admin.roles.show', $role) }}" class="btn btn-xs btn-default"><i class="fa fa-eye"></i></a>
                             <a href="{{ route('admin.roles.edit', $role) }}" class="btn btn-xs btn-info"><i class="fa fa-pencil-alt"></i></a>
+                            @if($role->name != 'Admin')
                             <form action="{{ route('admin.roles.destroy', $role) }}" method="post" class="d-inline">
+
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-xs btn-danger" onclick="return confirm('¿Seguro que quieres eliminar este rol?')">
                                     <i class="fa fa-times"></i>
                                 </button>
                             </form>
+                            @endif
                         </td>
                     </tr>
                 @endforeach

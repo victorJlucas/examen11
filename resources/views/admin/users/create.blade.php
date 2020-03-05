@@ -28,9 +28,11 @@
                             </div>
                             <div class="col-md-6">
                                 <label>Roles</label>
-                                @include('admin.roles.checkboxes')
+                               {{-- @include('admin.roles.checkboxes')--}}
+                                {!! Form::bsCheckbox($roles,'roles', $user, 'roles') !!}
                                 <label>Permisos</label>
-                                @include('admin.permissions.checkboxes', ['model' => $user])
+                                {!! Form::bsCheckbox($permissions,'permissions', $user, 'permissions') !!}
+                               {{-- @include('admin.permissions.checkboxes', ['model' => $user])--}}
                             </div>
                         </div>
                         <div class="row">

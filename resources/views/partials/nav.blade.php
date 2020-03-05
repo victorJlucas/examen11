@@ -20,18 +20,18 @@
         @auth
             <form action="{{ route('logout') }}" method="post">
                 @csrf
-                <button class="btn btn-default">Cerrar Sesión</button>
+                <button class="btn btn-default">{{ __('app.navbar.exit') }}</button>
             </form>
         @endauth
 
         @guest
             <form action="{{ route('login') }}" method="get">
                 @csrf
-                <button class="btn btn-default">Iniciar Sesión</button>
+                <button class="btn btn-default">{{ __('app.navbar.enter') }}</button>
             </form>
             <form action="{{ route('register') }}" method="get">
                 @csrf
-                <button class="btn btn-default">Registrarse</button>
+                <button class="btn btn-default">{{ __('app.navbar.register') }}</button>
             </form>
         @endguest
     </ul>

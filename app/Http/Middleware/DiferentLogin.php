@@ -13,9 +13,9 @@ class DiferentLogin
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+   public function handle($request, Closure $next)
     {
-        if (auth()->user()->hasRole('Default'))
+       if (auth()->user()->hasRole('Default'))
         {
             abort('404');
         }

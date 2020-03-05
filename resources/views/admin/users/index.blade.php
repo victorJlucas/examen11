@@ -18,7 +18,8 @@
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Listado de usuarios</h3>
-            <a href="{{ route('admin.users.create') }}" class="btn btn-primary float-right"><i class="fa fa-plus">Crear Usuario</i></a>
+            <a href="{{ route('admin.users.create') }}" class="btn btn-primary float-right"><i class="fa fa-plus">Crear
+                    Usuario</i></a>
         </div>
         <div class="card-body">
             <table id="users-table" class="table table-bordered table-striped">
@@ -39,15 +40,21 @@
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->getRoleNames()->implode(', ') }}</td>
                         <td>
-                            <a href="{{ route('admin.users.show', $user) }}" class="btn btn-xs btn-default"><i class="fa fa-eye"></i></a>
-                            <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-xs btn-info"><i class="fa fa-pencil-alt"></i></a>
-                            <form action="{{ route('admin.users.destroy', $user) }}" method="post" class="d-inline">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-xs btn-danger" onclick="return confirm('¿Seguro que quieres eliminar este usuario?')">
-                                    <i class="fa fa-times"></i>
-                                </button>
-                            </form>
+                            <a href="{{ route('admin.users.show', $user) }}" class="btn btn-xs btn-default"><i
+                                    class="fa fa-eye"></i></a>
+                            <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-xs btn-info"><i
+                                    class="fa fa-pencil-alt"></i></a>
+
+                            @can('Delete users')
+                                <form action="{{ route('admin.users.destroy', $user) }}" method="post" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-xs btn-danger"
+                                            onclick="return confirm('¿Seguro que quieres eliminar este usuario?')">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </form>
+                            @endcan
                         </td>
                     </tr>
                 @endforeach

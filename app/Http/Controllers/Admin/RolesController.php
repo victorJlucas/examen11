@@ -100,10 +100,11 @@ class RolesController extends Controller
     public function destroy(Role $role)
     {
         //$this->authorize('delete', $role);
+        if (! auth('Admin')) {
+            $role->delete();
 
-        $role->delete();
-
-        return redirect()->route('admin.roles.index')
-            ->withFlash('El usuario ' . $role->name . ' ha sido eliminado');
+            return redirect()->route('admin.roles.index')
+                ->withFlash('El usuario ' . $role->name . ' ha sido eliminado');
+        }
     }
 }

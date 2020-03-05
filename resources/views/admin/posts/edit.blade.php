@@ -25,19 +25,20 @@
         <div class="card-body">
             @if($post->photos->count() > 0)
                 <div class="row">
-                @foreach($post->photos as $photo)
-                    <div class="col-md-2">
-                        <form action="{{ route('admin.photos.destroy', $photo) }}" method="post" class="form-inline">
-                        @csrf
-                        @method('delete')
-                            <button class="btn btn-danger btn-xs" style="position: absolute">
-                                <i class="fa fa-trash"></i>
-                            </button>
-                            <img src="{{ Storage::url($photo->url) }}" class="img-responsive img-thumbnail">
-                    </form>
-                    </div>
-                @endforeach
-            </div>
+                    @foreach($post->photos as $photo)
+                        <div class="col-md-2">
+                            <form action="{{ route('admin.photos.destroy', $photo) }}" method="post"
+                                  class="form-inline">
+                                @csrf
+                                @method('delete')
+                                <button class="btn btn-danger btn-xs" style="position: absolute">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                                <img src="{{ Storage::url($photo->url) }}" class="img-responsive img-thumbnail">
+                            </form>
+                        </div>
+                    @endforeach
+                </div>
             @endif
             <form action="{{ route('admin.posts.update', $post) }}" method="post">
                 @csrf
@@ -48,8 +49,10 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="title">Título del post</label>
-                                    <input type="text" name="title" class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}"
-                                           placeholder="Escribe el título del post" value="{{ old('title', $post->title) }}">
+                                    <input type="text" name="title"
+                                           class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}"
+                                           placeholder="Escribe el título del post"
+                                           value="{{ old('title', $post->title) }}">
                                     {!! $errors->first('title','<span class="form-text text-danger">:message</span>') !!}
                                 </div>
                                 <div class="form-group">
@@ -60,10 +63,12 @@
                                             </h3>
                                             <!-- tools box -->
                                             <div class="card-tools">
-                                                <button type="button" class="btn btn-tool btn-sm" data-card-widget="collapse" data-toggle="tooltip"
+                                                <button type="button" class="btn btn-tool btn-sm"
+                                                        data-card-widget="collapse" data-toggle="tooltip"
                                                         title="Collapse">
                                                     <i class="fas fa-minus"></i></button>
-                                                <button type="button" class="btn btn-tool btn-sm" data-card-widget="remove" data-toggle="tooltip"
+                                                <button type="button" class="btn btn-tool btn-sm"
+                                                        data-card-widget="remove" data-toggle="tooltip"
                                                         title="Remove">
                                                     <i class="fas fa-times"></i></button>
                                             </div>
@@ -72,15 +77,17 @@
                                         <!-- /.card-header -->
                                         <div class="card-body pad">
                                             <div class="mb-3">
-                                                <textarea name="body" class="form-control textarea" placeholder="Escribe el texto del post"
+                                                <textarea name="body" class="form-control textarea"
+                                                          placeholder="Escribe el texto del post"
                                                           style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{ old('body', $post->body) }}</textarea>
                                                 {!! $errors->first('body','<span class="form-text text-danger">:message</span>') !!}
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label>Audio o vídeo embebido del post</label>
-                                            <textarea name="iframe" rows="4" class="form-control {{ $errors->has('iframe') ? 'is-invalid' : '' }}"
-                                                placeholder="Añade el iframe del vídeo o audio"
+                                            <textarea name="iframe" rows="4"
+                                                      class="form-control {{ $errors->has('iframe') ? 'is-invalid' : '' }}"
+                                                      placeholder="Añade el iframe del vídeo o audio"
                                             >{{ old('iframe', $post->iframe) }}</textarea>
                                             {!! $errors->first('iframe','<span class="form-text text-danger">:message</span>') !!}
                                         </div>
@@ -101,32 +108,44 @@
                                             </span>
                                         </div>
                                         <input type="text" class="form-control float-right" id="published_at"
-                                               name="published_at" value="{{ old('published_at', $post->published_at ? $post->published_at->format('m/d/Y') : null) }}">
+                                               name="published_at"
+                                               value="{{ old('published_at', $post->published_at ? $post->published_at->format('m/d/Y') : null) }}">
                                     </div>
                                 </div>
-                                <div class="form-group">
+
+                                {{ Form::bsSelect('category_id','Categorias',$categories,$post,false)}}
+
+                               {{--<div class="form-group">
                                     <label for="category_id">Categorías</label>
-                                    <select name="category_id" class="form-control select2 {{ $errors->has('category_id') ? 'is-invalid' : '' }}">
+                                    <select name="category_id"
+                                            class="form-control select2 {{ $errors->has('category_id') ? 'is-invalid' : '' }}">
                                         <option value="">Selecciona una categoría</option>
                                         @foreach($categories as $category)
-                                            <option value="{{ $category->id }}" {{ old('category_id', $post->category_id) == $category->id ? 'selected' : ''}}>{{ $category->name }}</option>
+                                            <option
+                                                value="{{ $category->id }}" {{ old('category_id', $post->category_id) == $category->id ? 'selected' : ''}}>{{ $category->name }}</option>
                                         @endforeach
                                     </select>
                                     {!! $errors->first('category_id','<span class="form-text text-danger">:message</span>') !!}
-                                </div>
-                                <div class="form-group">
-                                    <label>Etiquetas</label>
-                                    <select name="tags[]" class="form-control select2 {{ $errors->has('tags') ? 'is-invalid' : '' }}" multiple="multiple"
+                                </div>--}}
+
+                                {{ Form::bsSelect('tags[]','Etiquetas',$tags,$post,true)}}
+                               {{-- <div class="form-group">
+                                    <label for="tag">Etiquetas</label>
+                                    <select name="tags[]"
+                                            class="form-control select2 {{ $errors->has('tags') ? 'is-invalid' : '' }}"
+                                            multiple="multiple"
                                             data-placeholder="Select a State" style="width: 100%;">
                                         @foreach($tags as $tag)
-                                            <option value="{{ $tag->id }}" {{ collect(old('tags', $post->tags->pluck('id')))->contains($tag->id) ? 'selected': '' }}>{{ $tag->name }}</option>
+                                            <option
+                                                value="{{ $tag->id }}" {{ collect(old('tags', $post->tags->pluck('id')))->contains($tag->id) ? 'selected': '' }}>{{ $tag->name }}</option>
                                         @endforeach
                                     </select>
                                     {!! $errors->first('tags','<span class="form-text text-danger">:message</span>') !!}
-                                </div>
+                                </div>--}}
                                 <div class="form-group">
                                     <label for="excerpt">Extracto del post</label>
-                                    <textarea name="excerpt" class="form-control {{ $errors->has('excerpt') ? 'is-invalid' : '' }}"
+                                    <textarea name="excerpt"
+                                              class="form-control {{ $errors->has('excerpt') ? 'is-invalid' : '' }}"
                                               placeholder="Escribe un extracto del post">{{ old('excerpt', $post->excerpt) }}</textarea>
                                     {!! $errors->first('excerpt','<span class="form-text text-danger">:message</span>') !!}
                                 </div>
@@ -163,11 +182,11 @@
     <script>
         Dropzone.autoDiscover = false;
         $(function () {
-            $('#published_at').daterangepicker( {
+            $('#published_at').daterangepicker({
                 singleDatePicker: true,
                 showDropdowns: true,
                 minYear: 2020,
-                maxYear: parseInt(moment().format('YYYY'),10)+1
+                maxYear: parseInt(moment().format('YYYY'), 10) + 1
             });
             $('#published_at').val('{{ old('published_at', $post->published_at ? $post->published_at->format('m/d/Y') : null) }}');
 
@@ -187,7 +206,7 @@
                 dictDefaultMessage: 'Arrastra aquí las fotos'
             });
 
-            photos.on('error', function (file,res) {
+            photos.on('error', function (file, res) {
                 var msg = res.errors.photo[0];
                 $('.dz-error-message:last > span').text(msg);
             });

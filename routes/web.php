@@ -31,6 +31,7 @@ Route::group([
     'middleware' => ['auth', 'diferentLogins']
 ], function() {
     Route::get('/', 'AdminController@index')->name('dashboard');
+    Route::get('logs', 'LogsController@show')->name('logs.show');
 
     Route::resource('posts', 'PostsController', ['except' => ['show', 'create'], 'as' => 'admin']);
 
